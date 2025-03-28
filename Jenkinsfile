@@ -1,20 +1,29 @@
-pipeline{
+pipeline {
     agent any
-    stages{
 
-        stage('checkout'){
-            git 'https://github.com/K3nleyy/Test2'
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/K3nleyy/Test2'
+            }
         }
-        stage('Build'){
-            echo 'Building the application'
+        
+        stage('Build') {
+            steps {
+                echo 'Building the project...'
+            }
         }
-
-        stage('Test'){
-            echo 'Testing the application'
+        
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
         }
-
-        stage('Deploy'){
-            echo 'Deploying the application'
+        
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the project...'
+            }
         }
     }
 }
