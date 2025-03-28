@@ -1,28 +1,30 @@
 pipeline {
     agent any
-
+    tools{
+        maven 'maven'
+    }
     stages {
-        stage('Checkout') {
+        stage('Checkout'){
             steps {
                 git url: 'https://github.com/K3nleyy/Test2', branch: 'master'
             }
         }
-        
         stage('Build') {
             steps {
-                echo 'Building the project...'
+                sh 'mvn clean package'
             }
         }
-        
         stage('Test') {
             steps {
-                echo 'Running tests...'
+                sh 'mvn test'
             }
         }
-        
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the project...'
+        stage('Run JAR') {
+            steps { // Add the steps block here
+                script{
+                    def output = sh(script: 'java -jar target/simple-java-project-1.0-SNAPSHOT.jar', returnStdout: true)
+                    echo "Output from the JAR: ${output}"
+                }
             }
         }
     }
